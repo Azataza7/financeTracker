@@ -1,24 +1,46 @@
-import React, {useState} from 'react';
-import {useAppDispatch} from '../../app/hooks';
-import {createCategory, fetchCategory} from '../../store/Category/CategoryThunks';
+import React, {useEffect, useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {createCategory, fetchCategory, fetchCategoryItem, updateCategory} from '../../store/Category/CategoryThunks';
+import {useNavigate, useParams} from 'react-router-dom';
+import {
+  selectCategoryItem,
+  selectCreateCategoryLoading, selectShowModal,
+  setShowModal
+} from '../../store/Category/CategorySlice';
 
 const ModalCreateCategory = () => {
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
+  const {id} = useParams() as { id: string };
+  const onCreateLoading = useAppSelector(selectCreateCategoryLoading);
+  const category = useAppSelector(selectCategoryItem);
+  const showModal = useAppSelector(selectShowModal);
 
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');
-  const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCategoryItem(id));
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (category) {
+      setTitle(category.title);
+      setType(category.type);
+    }
+  }, [category]);
 
   const openModal = () => {
-    setShowModal(true);
+    dispatch(setShowModal(true));
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
     setTitle('');
     setType('');
+    navigate('/categories');
   };
 
   const handleSave = async () => {
@@ -26,8 +48,12 @@ const ModalCreateCategory = () => {
       alert('Please fill inputs or press Cancel');
       return;
     }
-    const data = {title, type};
-    await dispatch(createCategory(data));
+
+    if (id) {
+      await dispatch(updateCategory({id: id, data: {title, type}}));
+    } else {
+      await dispatch(createCategory({title, type}));
+    }
     await dispatch(fetchCategory());
     closeModal();
   };
@@ -37,11 +63,11 @@ const ModalCreateCategory = () => {
       <button className="add-category-button btn btn-primary" onClick={openModal}>
         Add
       </button>
-      {showModal && (
+      {showModal ? (
         <div className="modal-category">
           <div className="backdrop" onClick={closeModal}/>
           <div className="modal-content">
-            <h2>Add Category</h2>
+            <h2>{id ? 'Edit category' : 'Add Category'}</h2>
             <input
               type="text"
               placeholder="Title"
@@ -58,12 +84,12 @@ const ModalCreateCategory = () => {
               <option value="Expense">Expense</option>
             </select>
             <div className="modal-buttons">
-              <button className="btn btn-primary" onClick={handleSave}>Save</button>
-              <button className="btn btn-secondary" onClick={closeModal}>Cancel</button>
+              <button className="btn btn-primary" disabled={onCreateLoading} onClick={handleSave}>Save</button>
+              <button className="btn btn-secondary" disabled={onCreateLoading} onClick={closeModal}>Cancel</button>
             </div>
           </div>
         </div>
-      )}
+      ) : ''}
     </>
   );
 };

@@ -12,16 +12,16 @@ const CategoryList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategory())
-  }, [dispatch])
+    dispatch(fetchCategory());
+  }, [dispatch]);
 
-  if(onLoadingList) {
-    return <Spinner/>
+  if (onLoadingList) {
+    return <Spinner/>;
   }
 
   const categories: typesCategory[] | null = categoryList.map((category) => (
     <CategoryItem key={category.id} categoryItem={category}/>
-  ))
+  ));
 
   return (
     <div className="category-container">

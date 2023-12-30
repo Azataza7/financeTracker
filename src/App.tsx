@@ -9,6 +9,7 @@ const App = () => {
       <Header/>
       <Routes>
         <Route path="/categories" element={(<CategoryPage/>)}/>
+        <Route path="/categories/edit/:id" element={(<CategoryPage/>)}/>
         <Route path="*" element={(<h1 className="no-found">Not Found</h1>)}/>
       </Routes>
     </>

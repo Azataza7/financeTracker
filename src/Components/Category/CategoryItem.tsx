@@ -2,7 +2,7 @@ import React from 'react';
 import {category} from '../../types';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {selectDeleteCategoryLoading} from '../../store/Category/CategorySlice';
+import {selectDeleteCategoryLoading, selectShowModal, setShowModal} from '../../store/Category/CategorySlice';
 import {deleteCategory, fetchCategory} from '../../store/Category/CategoryThunks';
 import CategorySpinner from '../Spinner/CategorySpinner';
 
@@ -13,12 +13,17 @@ interface Props {
 const CategoryItem: React.FC<Props> = ({categoryItem}) => {
   const onLoading = useAppSelector(selectDeleteCategoryLoading);
   const dispatch = useAppDispatch();
+  const showModal: boolean = useAppSelector(selectShowModal);
 
   const textColor = categoryItem.type === 'Expense' ? 'red' : 'green';
 
   const handleDelete = async () => {
     await dispatch(deleteCategory(categoryItem.id));
     await dispatch(fetchCategory());
+  };
+
+  const handleEdit = () => {
+    dispatch(setShowModal(true));
   };
 
   return (
@@ -37,6 +42,7 @@ const CategoryItem: React.FC<Props> = ({categoryItem}) => {
                 className="edit-button btn btn-secondary"
                 style={{display: onLoading ? 'none' : 'inline-block'}}
                 to={'edit/' + categoryItem.id}
+                onClick={handleEdit}
               />
               <button className="delete-button btn btn-danger" onClick={handleDelete}/>
             </div>
