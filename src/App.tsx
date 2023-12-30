@@ -2,7 +2,7 @@ import './App.css'
 import Header from './Components/Header/Header';
 import {Routes, Route} from 'react-router-dom';
 import CategoryPage from './Containers/CategoryPage/CategoryPage';
-import ReportsList from './Components/Reports/ReportsList';
+import ReportsPage from './Containers/ReportsPage/ReportsPage';
 
 const App = () => {
   return (
@@ -10,7 +10,13 @@ const App = () => {
       <Header/>
       <Routes>
         <Route path="/" element={(
-          <ReportsList/>
+          <ReportsPage/>
+        )}/>
+        <Route path="/edit/:id" element={(
+          <ReportsPage/>
+        )}/>
+        <Route path="/add-transaction" element={(
+          <ReportsPage/>
         )}/>
         <Route path="/categories" element={(<CategoryPage/>)}/>
         <Route path="/categories/edit/:id" element={(<CategoryPage/>)}/>

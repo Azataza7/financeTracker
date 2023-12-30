@@ -1,7 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {selectShowModal, setShowModal} from '../../store/Category/CategorySlice';
 
 const Header = () => {
+  const showModal = useAppSelector(selectShowModal);
+  const dispatch = useAppDispatch();
+
+  const handleOpenModal = () => {
+    dispatch(setShowModal(!showModal))
+  };
+
   return (
     <nav className="navbar bg-body-tertiary">
       <div className="container-fluid">
@@ -12,7 +21,7 @@ const Header = () => {
               <Link to="/categories" className="nav-link" href="#">Category</Link>
             </li>
             <li className="nav-item">
-              <Link to="/add-transaction" className="nav-link" href="#">Add</Link>
+              <Link to="/add-transaction" className="nav-link" onClick={handleOpenModal}>Add</Link>
             </li>
           </ul>
         </div>

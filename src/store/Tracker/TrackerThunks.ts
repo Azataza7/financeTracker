@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosApi from '../../axiosApi';
-import {report, typeOfReportJson} from '../../types';
+import {report, typeOfReport, typeOfReportJson, typesCategory} from '../../types';
 
 export const fetchReports = createAsyncThunk<report[], undefined>(
   'reports',
@@ -17,3 +17,43 @@ export const fetchReports = createAsyncThunk<report[], undefined>(
     }
   }
 );
+
+export const createReport = createAsyncThunk<void, typeOfReport>(
+  'report/create',
+  async (data) => {
+    try {
+      await axiosApi.post('/reports.json', data);
+    } catch (e) {
+      console.log('Error: ', e);
+    }
+  }
+);
+
+export const fetchReportItem = createAsyncThunk<typeOfReport, string>(
+  'report/reportId',
+  async (id) => {
+    try {
+      const response = await axiosApi.get(`/reports/${id}.json`);
+      return response.data;
+    } catch (e) {
+      console.log('Error: ', e);
+    }
+  }
+);
+
+interface updateReportParams {
+  id: string;
+  data: typeOfReport;
+}
+
+
+export const updateReport = createAsyncThunk<void, updateReportParams>(
+  'report/update',
+  async ({id, data}) => {
+    try {
+      await axiosApi.put(`/reports/${id}.json`, data)
+    } catch (e) {
+      console.log('Error: ', e)
+    }
+  }
+)

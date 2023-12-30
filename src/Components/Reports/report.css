@@ -1,0 +1,38 @@
+.reports-container {
+  margin-top: 20px;
+}
+
+.report-block {
+  padding: 15px;
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.report-body {
+  flex-basis: 50%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.created-at {
+  font-size: 14px;
+  border-radius: 15px;
+  padding: 3px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.control-panel-report {
+  display: flex;
+  align-items: center;
+}
+
+.title-category {
+  font-size: 20px;
+
+}

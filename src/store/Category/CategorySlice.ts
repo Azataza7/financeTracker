@@ -5,7 +5,7 @@ import {RootState} from '../../app/store';
 
 interface typesCategoryState {
   categories: typesCategory[];
-  categoryItem: typesCategory | null;
+  categoryItem: typesCategory;
 
   categoryListOnLoading: boolean;
   createCategoryLoading: boolean;
@@ -16,7 +16,7 @@ interface typesCategoryState {
 
 const initialState: typesCategoryState = {
   categories: [],
-  categoryItem: null,
+  categoryItem: {title: '', type: ''},
 
   categoryListOnLoading: false,
   createCategoryLoading: false,

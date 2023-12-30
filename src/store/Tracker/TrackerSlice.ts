@@ -1,20 +1,24 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {typeOfReport} from '../../types';
 import {RootState} from '../../app/store';
-import {fetchReports} from './TrackerThunks';
+import {createReport, fetchReportItem, fetchReports, updateReport} from './TrackerThunks';
 
 interface typesTrackerState {
   reports: typeOfReport[];
-  reportOne: typeOfReport | null;
+  reportOne: typeOfReport;
 
   fetchReportsLoading: boolean;
+  createReportLoading: boolean;
+  updateReportLoading: boolean;
 }
 
 const initialState: typesTrackerState = {
   reports: [],
-  reportOne: null,
+  reportOne: {category: '', amount: 0, createdAt: '', type: ''},
 
   fetchReportsLoading: false,
+  createReportLoading: false,
+  updateReportLoading: false,
 };
 
 const TrackerSlice = createSlice({
@@ -36,10 +40,43 @@ const TrackerSlice = createSlice({
     builder.addCase(fetchReports.rejected, (state: typesTrackerState) => {
       state.fetchReportsLoading = false;
     });
+
+    builder.addCase(createReport.pending, (state: typesTrackerState) => {
+      state.createReportLoading = true;
+    });
+    builder.addCase(createReport.fulfilled, (state: typesTrackerState) => {
+      state.createReportLoading = false;
+    });
+    builder.addCase(createReport.rejected, (state: typesTrackerState) => {
+      state.createReportLoading = false;
+    });
+
+    builder.addCase(fetchReportItem.pending, (state: typesTrackerState) => {
+      state.updateReportLoading = true;
+    });
+    builder.addCase(fetchReportItem.fulfilled, (state: typesTrackerState, {payload: reportItem}) => {
+      state.updateReportLoading = false;
+      state.reportOne = reportItem;
+    });
+    builder.addCase(fetchReportItem.rejected, (state: typesTrackerState) => {
+      state.updateReportLoading = false;
+    });
+
+    builder.addCase(updateReport.pending, (state: typesTrackerState) => {
+      state.updateReportLoading = true;
+    });
+    builder.addCase(updateReport.fulfilled, (state: typesTrackerState) => {
+      state.updateReportLoading = false;
+    });
+    builder.addCase(updateReport.rejected, (state: typesTrackerState) => {
+      state.updateReportLoading = false;
+    });
   }
 });
 
 export const trackerReducer = TrackerSlice.reducer;
 export const selectReports = (state: RootState) => state.tracker.reports;
+export const selectReportItem = (state: RootState) => state.tracker.reportOne;
 
 export const selectFetchReportLoading = (state: RootState) => state.tracker.fetchReportsLoading;
+export const selectCreateReportLoading = (state: RootState) => state.tracker.createReportLoading;

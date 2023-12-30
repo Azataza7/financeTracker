@@ -19,6 +19,7 @@ export interface typeOfReport {
   category: string;
   amount: number;
   createdAt: string;
+  type: string;
 }
 
 export interface typeOfReportJson {

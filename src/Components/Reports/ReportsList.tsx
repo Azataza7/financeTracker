@@ -5,7 +5,7 @@ import {fetchReports} from '../../store/Tracker/TrackerThunks';
 import Spinner from '../Spinner/Spinner';
 import {report} from '../../types';
 import ReportItem from './ReportItem';
-import {selectCategoryItem} from '../../store/Category/CategorySlice';
+import './report.css';
 
 const ReportsList = () => {
   const dispatch = useAppDispatch();
@@ -13,16 +13,16 @@ const ReportsList = () => {
   const onLoading = useAppSelector(selectFetchReportLoading);
 
   useEffect(() => {
-    dispatch(fetchReports())
-  }, [dispatch])
+    dispatch(fetchReports());
+  }, [dispatch]);
 
   if (onLoading) {
-    return <Spinner/>
+    return <Spinner/>;
   }
 
   const reportsList: report[] | null = reports.map((item) => (
     <ReportItem key={item.id} report={item}/>
-  ))
+  ));
 
   return (
     <div className="reports-container">
