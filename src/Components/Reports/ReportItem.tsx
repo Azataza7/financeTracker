@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {category, report} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {selectCategories, selectShowModal, setShowModal} from '../../store/Category/CategorySlice';
@@ -28,14 +28,14 @@ const ReportItem: React.FC<Props> = ({report}) => {
     await dispatch(fetchReports());
   };
 
-  const amountStyle = categoryItem.type === 'Income' ? 'green' : 'red';
+  const amountStyle = categoryItem?.type === 'Income' ? 'green' : 'red';
 
   return (
     <div className="report-block mb-2" style={{border: `3px solid ${amountStyle}`}}>
       <div className="report-body">
         <span className="title-category">{categoryItem?.title}</span>
         <span className="amount" style={{color: amountStyle}}>
-          {categoryItem.type === 'Income' ? `+${report.amount} KGS` : `-${report.amount} KGS`}
+          {categoryItem?.type === 'Income' ? `+${report.amount} KGS` : `-${report.amount} KGS`}
         </span>
       </div>
       <div className="control-panel-report">

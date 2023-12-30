@@ -16,6 +16,23 @@ const ReportsList = () => {
     dispatch(fetchReports());
   }, [dispatch]);
 
+  const calculateTotalAmount = () => {
+    let totalIncome = 0;
+    let totalExpense = 0;
+
+    reports.forEach(item => {
+      if (item && item.type) {
+        if (item?.type === 'Income') {
+          totalIncome += Number(item.amount);
+        } else {
+          totalExpense += Number(item.amount);
+        }
+      }
+    });
+
+    return totalIncome - totalExpense;
+  };
+
   const sortedReports = [...reports].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
@@ -27,8 +44,13 @@ const ReportsList = () => {
     <ReportItem key={item.id} report={item}/>
   ));
 
+  const totalAmount = calculateTotalAmount();
+
   return (
     <div className="reports-container">
+      <div className="total-amount">
+        <p>Total Amount: {totalAmount} KGS</p>
+      </div>
       {reportsList}
     </div>
   );

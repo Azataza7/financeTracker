@@ -79,6 +79,7 @@ const ModalCreateReport = () => {
                 setFormData({...formData, type: selectedType});
               }}
             >
+              <option value="">Select type</option>
               <option value="Income">Income</option>
               <option value="Expense">Expense</option>
             </select>
