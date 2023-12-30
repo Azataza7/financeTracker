@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from '../../app/hooks';
 import {createCategory, fetchCategory} from '../../store/Category/CategoryThunks';
-import {useNavigate} from 'react-router-dom';
 
 const ModalCreateCategory = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
 
   const [title, setTitle] = useState('');
@@ -24,6 +22,10 @@ const ModalCreateCategory = () => {
   };
 
   const handleSave = async () => {
+    if (!title || !type) {
+      alert('Please fill inputs or press Cancel');
+      return;
+    }
     const data = {title, type};
     await dispatch(createCategory(data));
     await dispatch(fetchCategory());

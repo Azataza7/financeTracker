@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {typesCategory} from '../../types';
-import {createCategory, fetchCategory} from './CategoryThunks';
+import {createCategory, deleteCategory, fetchCategory} from './CategoryThunks';
 import {RootState} from '../../app/store';
 
 interface typesCategoryState {
@@ -9,6 +9,7 @@ interface typesCategoryState {
 
   categoryListOnLoading: boolean;
   createCategoryLoading: boolean;
+  deleteCategoryLoading: boolean;
 }
 
 const initialState: typesCategoryState = {
@@ -16,6 +17,7 @@ const initialState: typesCategoryState = {
   categoryItem: null,
   categoryListOnLoading: false,
   createCategoryLoading: false,
+  deleteCategoryLoading: false,
 };
 
 const CategorySlice = createSlice({
@@ -47,6 +49,15 @@ const CategorySlice = createSlice({
     builder.addCase(createCategory.rejected, (state: typesCategoryState) => {
       state.createCategoryLoading = false;
     });
+    builder.addCase(deleteCategory.pending, (state: typesCategoryState) => {
+      state.deleteCategoryLoading = true;
+    });
+    builder.addCase(deleteCategory.fulfilled, (state: typesCategoryState) => {
+      state.deleteCategoryLoading = false;
+    });
+    builder.addCase(deleteCategory.rejected, (state: typesCategoryState) => {
+      state.deleteCategoryLoading = false;
+    });
   },
 });
 
@@ -55,3 +66,4 @@ export const selectCategories = (state: RootState) => state.category.categories;
 
 export const selectCategoriesLoading = (state: RootState) => state.category.categoryListOnLoading;
 export const selectCreateCategoryLoading = (state: RootState) => state.category.createCategoryLoading;
+export const selectDeleteCategoryLoading = (state: RootState) => state.category.deleteCategoryLoading;
