@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {typeOfReport} from '../../types';
 import {RootState} from '../../app/store';
-import {createReport, fetchReportItem, fetchReports, updateReport} from './TrackerThunks';
+import {createReport, deleteReport, fetchReportItem, fetchReports, updateReport} from './TrackerThunks';
 
 interface typesTrackerState {
   reports: typeOfReport[];
@@ -10,6 +10,7 @@ interface typesTrackerState {
   fetchReportsLoading: boolean;
   createReportLoading: boolean;
   updateReportLoading: boolean;
+  deleteReportLoading: boolean;
 }
 
 const initialState: typesTrackerState = {
@@ -19,6 +20,7 @@ const initialState: typesTrackerState = {
   fetchReportsLoading: false,
   createReportLoading: false,
   updateReportLoading: false,
+  deleteReportLoading: false,
 };
 
 const TrackerSlice = createSlice({
@@ -71,6 +73,16 @@ const TrackerSlice = createSlice({
     builder.addCase(updateReport.rejected, (state: typesTrackerState) => {
       state.updateReportLoading = false;
     });
+
+    builder.addCase(deleteReport.pending, (state: typesTrackerState) => {
+      state.deleteReportLoading = true;
+    });
+    builder.addCase(deleteReport.fulfilled, (state: typesTrackerState) => {
+      state.deleteReportLoading = false;
+    });
+    builder.addCase(deleteReport.rejected, (state: typesTrackerState) => {
+      state.deleteReportLoading = false;
+    });
   }
 });
 
@@ -80,3 +92,4 @@ export const selectReportItem = (state: RootState) => state.tracker.reportOne;
 
 export const selectFetchReportLoading = (state: RootState) => state.tracker.fetchReportsLoading;
 export const selectCreateReportLoading = (state: RootState) => state.tracker.createReportLoading;
+export const selectDeleteReportLoading = (state: RootState) => state.tracker.deleteReportLoading;

@@ -51,9 +51,16 @@ export const updateReport = createAsyncThunk<void, updateReportParams>(
   'report/update',
   async ({id, data}) => {
     try {
-      await axiosApi.put(`/reports/${id}.json`, data)
+      await axiosApi.put(`/reports/${id}.json`, data);
     } catch (e) {
-      console.log('Error: ', e)
+      console.log('Error: ', e);
     }
   }
-)
+);
+
+export const deleteReport = createAsyncThunk<void, string>(
+  'report/delete',
+  async (id) => {
+    await axiosApi.delete(`/reports${id}.json`);
+  }
+);

@@ -20,7 +20,9 @@ const ReportsList = () => {
     return <Spinner/>;
   }
 
-  const reportsList: report[] | null = reports.map((item) => (
+  const sortedReports = [...reports].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+  const reportsList: JSX.Element[] = sortedReports.map((item) => (
     <ReportItem key={item.id} report={item}/>
   ));
 

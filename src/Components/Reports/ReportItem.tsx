@@ -6,6 +6,7 @@ import {selectCategoryItem, selectShowModal, setShowModal} from '../../store/Cat
 import dayjs from 'dayjs';
 import {Link, useNavigate} from 'react-router-dom';
 import {selectFetchReportLoading} from '../../store/Tracker/TrackerSlice';
+import {deleteReport, fetchReports} from '../../store/Tracker/TrackerThunks';
 
 interface Props {
   report: report;
@@ -25,10 +26,15 @@ const ReportItem: React.FC<Props> = ({report}) => {
 
   useEffect(() => {
     console.log(categoryItem);
-  }, [categoryItem]);
+  }, [categoryItem, report]);
 
   const handleShowModal = () => {
     dispatch(setShowModal(!showModal));
+  };
+
+  const handleDelete = async () => {
+    await dispatch(deleteReport(report.id));
+    await dispatch(fetchReports());
   };
 
   return (
@@ -49,7 +55,7 @@ const ReportItem: React.FC<Props> = ({report}) => {
           to={'edit/' + report.id}
           onClick={handleShowModal}
         />
-        <button className="delete-button btn btn-danger"/>
+        <button className="delete-button btn btn-danger" onClick={handleDelete}/>
       </div>
     </div>
   );
