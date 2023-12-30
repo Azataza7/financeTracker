@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom';
 
 const Header = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar bg-body-tertiary">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">Navbar</a>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+        <Link to="/" className="navbar-brand" href="#">Navbar</Link>
+        <div className="nav-container" id="navbarNav">
+          <ul className="navbar-nav d-flex flex-row gap-2">
             <li className="nav-item">
               <Link to="/categories" className="nav-link" href="#">Category</Link>
             </li>
