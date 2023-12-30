@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <nav className="navbar bg-body-tertiary">
       <div className="container-fluid">
-        <Link to="/" className="navbar-brand" href="#">Navbar</Link>
+        <Link to="/" className="navbar-brand" href="#">Finance Tracker</Link>
         <div className="nav-container" id="navbarNav">
           <ul className="navbar-nav d-flex flex-row gap-2">
             <li className="nav-item">

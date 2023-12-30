@@ -3,3 +3,111 @@
   margin: 0 auto;
   padding: 2rem;
 }
+
+.edit-button {
+  width: 40px;
+  height: 40px;
+  background: url("./images/edit.svg") no-repeat center;
+  margin-right: 5px;
+}
+
+.delete-button {
+  width: 40px;
+  height: 40px;
+  background: url("./images/trash.svg") no-repeat center;
+}
+
+.category-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  gap: 20px;
+}
+
+.category-block {
+  border: 2px solid #242424;
+  border-radius: 10px;
+  flex-basis: 45%;
+  padding: 20px;
+
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+}
+
+.control-panel {
+  position: absolute;
+  bottom: 5px;
+  right: 6px;
+}
+
+.type-category {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.preloader {
+  position: absolute;
+  top: 46%;
+  left: 46%;
+  padding: 30px;
+}
+
+.add-category-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+
+.modal-category {
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  z-index: 2;
+
+  padding: 20px;
+  border-radius: 10px;
+  background-color: darkgrey;
+}
+
+.modal-content {
+  padding: 20px;
+  opacity: 0.8;
+  position: relative;
+}
+
+.modal-content h2 {
+  font-size: 20px;
+}
+
+.modal-content input {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.category-options {
+  padding: 8px;
+  margin-bottom: 20px;
+}
+
+.modal-buttons {
+  position: absolute;
+  bottom: -16px;
+  right: -15px;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}

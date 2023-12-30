@@ -10,3 +10,7 @@ export interface typesCategoryJson {
 export interface responseTypesCategory {
   data: typesCategoryJson
 }
+
+export interface category extends typesCategory{
+  id: string
+}
