@@ -7,14 +7,15 @@ import {
   selectCreateCategoryLoading, selectShowModal,
   setShowModal
 } from '../../store/Category/CategorySlice';
+import {typesCategory} from '../../types';
 
 const ModalCreateCategory = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {id} = useParams() as { id: string };
-  const onCreateLoading = useAppSelector(selectCreateCategoryLoading);
-  const category = useAppSelector(selectCategoryItem);
-  const showModal = useAppSelector(selectShowModal);
+  const onCreateLoading: boolean = useAppSelector(selectCreateCategoryLoading);
+  const category: typesCategory = useAppSelector(selectCategoryItem);
+  const showModal: boolean = useAppSelector(selectShowModal);
 
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');

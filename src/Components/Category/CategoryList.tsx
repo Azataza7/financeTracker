@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {selectCategories, selectCategoriesLoading} from '../../store/Category/CategorySlice';
-import {typesCategory} from '../../types';
+import {category} from '../../types';
 import Spinner from '../Spinner/Spinner';
 import {fetchCategory} from '../../store/Category/CategoryThunks';
 import CategoryItem from './CategoryItem';
 
 const CategoryList = () => {
-  const categoryList = useAppSelector(selectCategories);
-  const onLoadingList = useAppSelector(selectCategoriesLoading);
+  const categoryList: category[] | null = useAppSelector(selectCategories);
+  const onLoadingList: boolean = useAppSelector(selectCategoriesLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const CategoryList = () => {
     return <Spinner/>;
   }
 
-  const categories: typesCategory[] | null = categoryList.map((category) => (
+  const categories: JSX.Element[] | undefined = categoryList?.map((category) => (
     <CategoryItem key={category.id} categoryItem={category}/>
   ));
 

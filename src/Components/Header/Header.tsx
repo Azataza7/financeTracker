@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {selectShowModal, setShowModal} from '../../store/Category/CategorySlice';
 
 const Header = () => {
-  const showModal = useAppSelector(selectShowModal);
+  const showModal: boolean = useAppSelector(selectShowModal);
   const dispatch = useAppDispatch();
 
   const handleOpenModal = () => {

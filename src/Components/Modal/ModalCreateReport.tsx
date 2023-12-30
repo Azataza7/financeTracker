@@ -5,14 +5,14 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {selectCreateReportLoading, selectReportItem} from '../../store/Tracker/TrackerSlice';
 import {createReport, fetchReportItem, fetchReports, updateReport} from '../../store/Tracker/TrackerThunks';
 import {fetchCategory} from '../../store/Category/CategoryThunks';
-import {typeOfReport} from '../../types';
+import {category, typeOfReport} from '../../types';
 
 const ModalCreateReport = () => {
   const {id} = useParams() as { id: string };
   const dispatch = useAppDispatch();
-  const categories = useAppSelector(selectCategories);
-  const showModal = useAppSelector(selectShowModal);
-  const onCreateLoading = useAppSelector(selectCreateReportLoading);
+  const categories: category[] = useAppSelector(selectCategories);
+  const showModal: boolean = useAppSelector(selectShowModal);
+  const onCreateLoading: boolean = useAppSelector(selectCreateReportLoading);
   const report: typeOfReport = useAppSelector(selectReportItem);
   const navigate = useNavigate();
 

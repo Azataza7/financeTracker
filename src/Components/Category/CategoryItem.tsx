@@ -11,7 +11,7 @@ interface Props {
 }
 
 const CategoryItem: React.FC<Props> = ({categoryItem}) => {
-  const onLoading = useAppSelector(selectDeleteCategoryLoading);
+  const onLoading: boolean = useAppSelector(selectDeleteCategoryLoading);
   const dispatch = useAppDispatch();
   const showModal: boolean = useAppSelector(selectShowModal);
 

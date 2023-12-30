@@ -1,11 +1,11 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosApi from '../../axiosApi';
-import {report, typeOfReport, typeOfReportJson, typesCategory} from '../../types';
+import {report, responseTypeOfReport, typeOfReport} from '../../types';
 
 export const fetchReports = createAsyncThunk<report[], undefined>(
   'reports',
   async () => {
-    const response = await axiosApi.get<report[] | null>('reports.json');
+    const response = await axiosApi.get<responseTypeOfReport | null>('reports.json');
     if (response.data) {
       const result: report[] = Object.keys(response.data).map((id) => ({
         ...response.data[id],
@@ -61,6 +61,6 @@ export const updateReport = createAsyncThunk<void, updateReportParams>(
 export const deleteReport = createAsyncThunk<void, string>(
   'report/delete',
   async (id) => {
-    await axiosApi.delete(`/reports${id}.json`);
+    await axiosApi.delete(`/reports/${id}.json`);
   }
 );

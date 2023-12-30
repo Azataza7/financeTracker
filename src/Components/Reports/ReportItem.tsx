@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react';
-import {report, typesCategory} from '../../types';
-import {fetchCategoryItem} from '../../store/Category/CategoryThunks';
+import React from 'react';
+import {category, report} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {selectCategoryItem, selectShowModal, setShowModal} from '../../store/Category/CategorySlice';
+import {selectCategories, selectShowModal, setShowModal} from '../../store/Category/CategorySlice';
 import dayjs from 'dayjs';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {selectFetchReportLoading} from '../../store/Tracker/TrackerSlice';
 import {deleteReport, fetchReports} from '../../store/Tracker/TrackerThunks';
 
@@ -13,20 +12,12 @@ interface Props {
 }
 
 const ReportItem: React.FC<Props> = ({report}) => {
-  const categoryItem: typesCategory = useAppSelector(selectCategoryItem);
   const dispatch = useAppDispatch();
-  const onLoading = useAppSelector(selectFetchReportLoading);
-  const showModal = useAppSelector(selectShowModal);
+  const categories: category[] = useAppSelector(selectCategories);
+  const onLoading: boolean = useAppSelector(selectFetchReportLoading);
+  const showModal: boolean = useAppSelector(selectShowModal);
 
-  useEffect(() => {
-    dispatch(fetchCategoryItem(report.category));
-  }, [report.category, dispatch]);
-
-  const amountStyle = categoryItem.type === 'Income' ? 'green' : 'red';
-
-  useEffect(() => {
-    console.log(categoryItem);
-  }, [categoryItem, report]);
+  const categoryItem = categories.find(category => category.id == report.category)
 
   const handleShowModal = () => {
     dispatch(setShowModal(!showModal));
@@ -36,6 +27,8 @@ const ReportItem: React.FC<Props> = ({report}) => {
     await dispatch(deleteReport(report.id));
     await dispatch(fetchReports());
   };
+
+  const amountStyle = categoryItem.type === 'Income' ? 'green' : 'red';
 
   return (
     <div className="report-block mb-2" style={{border: `3px solid ${amountStyle}`}}>
