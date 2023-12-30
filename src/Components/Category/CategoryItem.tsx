@@ -23,7 +23,7 @@ const CategoryItem: React.FC<Props> = ({categoryItem}) => {
   };
 
   const handleEdit = () => {
-    dispatch(setShowModal(true));
+    dispatch(setShowModal(!showModal));
   };
 
   return (

@@ -1,11 +1,12 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {categoryReducer} from '../store/Category/CategorySlice';
+import {trackerReducer} from '../store/Tracker/TrackerSlice';
 
 
 export const store = configureStore({
   reducer: {
     category: categoryReducer,
-
+    tracker: trackerReducer,
   }
 });
 

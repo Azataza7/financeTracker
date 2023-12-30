@@ -1,16 +1,34 @@
 export interface typesCategory {
   type: string;
-  title: string
+  title: string;
 }
 
 export interface typesCategoryJson {
-  [id: string]: typesCategory
+  [id: string]: typesCategory;
 }
 
 export interface responseTypesCategory {
-  data: typesCategoryJson
+  data: typesCategoryJson;
 }
 
-export interface category extends typesCategory{
-  id: string
+export interface category extends typesCategory {
+  id: string;
+}
+
+export interface typeOfReport {
+  category: string;
+  amount: number;
+  createdAt: string;
+}
+
+export interface typeOfReportJson {
+  [id: string]: typeOfReport;
+}
+
+export interface responseTypeOfReport {
+  data: typesCategoryJson;
+}
+
+export interface report extends typeOfReport {
+  id: string;
 }
